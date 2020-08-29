@@ -14,7 +14,7 @@
           <b-form-datepicker v-model="dueDate" :min="min"></b-form-datepicker>
           <b-form-select v-model="piority" :options="options" class="ml-1"></b-form-select>
         </div>
-        <b-button class="mt-3" variant="primary" block type="submit">Add</b-button>
+        <b-button class="mt-3" variant="success" block type="submit">Add</b-button>
       </b-form>
     </b-card>
   </div>

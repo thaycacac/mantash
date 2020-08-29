@@ -5,7 +5,7 @@
         <add-task @addTask="addTask" />
       </b-col>
       <b-col>
-        <view-task />
+        <view-task :tasks="tasks" @updateTask="updateTask" @deleteTask="deleteTask" />
       </b-col>
     </b-row>
   </b-container>
@@ -31,6 +31,15 @@ export default {
         isComplete: false,
       });
       console.log(this.tasks);
+      this.saveData();
+    },
+    updateTask(index, data) {
+      console.log(data);
+      this.tasks[index] = data;
+      this.saveData();
+    },
+    deleteTask(index) {
+      this.tasks.splice(index, 1);
       this.saveData();
     },
     saveData() {
