@@ -9,7 +9,6 @@
     <b-card class="my-2" v-for="(item, index) in tasksTemp" :key="index">
       <div class="d-flex justify-content-between">
         <b-form-checkbox
-          id="checkbox-1"
           v-model="item.isComplete"
           name="checkbox-1"
           :value="true"
@@ -66,6 +65,7 @@ export default {
         description: "",
         dueDate: new Date(),
         piority: "normal",
+        isComplete: false,
       },
     };
   },
@@ -75,7 +75,10 @@ export default {
       this.taskUpdate = this.tasks.find((item) => item.id === id);
     },
     update(index) {
-      this.$emit("updateTask", index, this.taskUpdate);
+      this.$emit("updateTask", index, {
+        ...this.taskUpdate,
+        ...this.tasksTemp[index].isComplete,
+      });
       this.idSelected = false;
     },
     deleteTask(index) {
