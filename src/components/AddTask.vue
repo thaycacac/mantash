@@ -46,6 +46,13 @@ export default {
         dueDate: this.dueDate,
         piority: this.piority,
       });
+      this.clearData();
+    },
+    clearData() {
+      this.title = "";
+      this.description = "";
+      this.dueDate = new Date();
+      this.piority = "normal";
     },
   },
 };
