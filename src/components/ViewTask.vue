@@ -1,7 +1,12 @@
 <template>
   <div>
-    <b-form-input required v-model="textSearch" placeholder="Search..."></b-form-input>
-    <b-card class="my-2" v-for="(item, index) in tasks" :key="index">
+    <b-form-input
+      required
+      v-model="textSearch"
+      placeholder="Search..."
+      @keypress.enter="searchTask"
+    ></b-form-input>
+    <b-card class="my-2" v-for="(item, index) in tasksTemp" :key="index">
       <div class="d-flex justify-content-between">
         <b-form-checkbox
           id="checkbox-1"
@@ -55,6 +60,7 @@ export default {
         { value: "normal", text: "Normal " },
         { value: "high", text: "High" },
       ],
+      tasksTemp: this.tasks,
       taskUpdate: {
         title: "",
         description: "",
@@ -74,6 +80,11 @@ export default {
     },
     deleteTask(index) {
       this.$emit("deleteTask", index);
+    },
+    searchTask() {
+      this.tasksTemp = this.tasks.filter((item) =>
+        item.title.toLowerCase().includes(this.textSearch.toLowerCase())
+      );
     },
   },
 };
