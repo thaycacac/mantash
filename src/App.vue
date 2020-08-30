@@ -5,7 +5,13 @@
         <add-task @addTask="addTask" />
       </b-col>
       <b-col>
-        <view-task :tasks="tasks" @updateTask="updateTask" @deleteTask="deleteTask" />
+        <view-task
+          :tasks="tasks"
+          @updateTask="updateTask"
+          @deleteTask="deleteTask"
+          @doneMultiple="doneMultiple"
+          @deleteMultiple="deleteMultiple"
+        />
       </b-col>
     </b-row>
   </b-container>
@@ -30,20 +36,36 @@ export default {
         ...data,
         isComplete: false,
       });
-      console.log(this.tasks);
       this.saveData();
     },
-    updateTask(index, data) {
-      console.log(data);
+    updateTask(id, data) {
+      const index = this.tasks.findIndex((item) => item.id === id);
       this.tasks[index] = data;
       this.saveData();
     },
-    deleteTask(index) {
+    deleteTask(id) {
+      const index = this.tasks.findIndex((item) => item.id === id);
       this.tasks.splice(index, 1);
       this.saveData();
     },
     saveData() {
       localStorage.setItem("data", JSON.stringify(this.tasks));
+    },
+    doneMultiple(list) {
+      this.tasks.forEach((item, index) => {
+        if (list.includes(item.id)) {
+          this.tasks[index].isComplete = true;
+        }
+      });
+      this.saveData();
+    },
+    deleteMultiple(list) {
+      this.tasks.forEach((item, index) => {
+        if (list.includes(item.id)) {
+          this.tasks.splice(index, 1);
+        }
+      });
+      this.saveData();
     },
   },
 };
