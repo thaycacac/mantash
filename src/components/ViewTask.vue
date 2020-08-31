@@ -101,6 +101,9 @@ export default {
     update(id) {
       this.$emit("updateTask", id, this.taskUpdate);
       this.idSelected = false;
+      this.tasksTemp.sort(
+        (a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
+      );
     },
     deleteTask(id) {
       this.$emit("deleteTask", id);
